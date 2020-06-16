@@ -1,3 +1,7 @@
 /target/
 /resources/
 /bin/
+
+.classpath
+.project
+.settings
