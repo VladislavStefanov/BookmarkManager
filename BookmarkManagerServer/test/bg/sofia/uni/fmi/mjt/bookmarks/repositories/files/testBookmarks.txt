@@ -1,0 +1,1 @@
+{"myCollection2":{"bookmarks":[{"url":"google.com"}]},"myCollection1":{"bookmarks":[{"url":"google.com"},{"url":"youtube.com"}]}}
