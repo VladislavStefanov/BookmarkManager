@@ -13,7 +13,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import bg.sofia.uni.fmi.mjt.bookmarks.Response;
-import bg.sofia.uni.fmi.mjt.bookmarks.api.state.GuestBookmarkManagerState;
+import bg.sofia.uni.fmi.mjt.bookmarks.api.state.LoggedInBookmarkManagerState;
 import bg.sofia.uni.fmi.mjt.bookmarks.repositories.BookmarkRepository;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -37,7 +37,7 @@ public class BookmarkManagerTest {
     private BookmarkRepository bookmarkRepository;
 
     @InjectMocks
-    private GuestBookmarkManagerState bookmarkManager;
+    private LoggedInBookmarkManagerState bookmarkManager;
 
     @Test
     public void testRegisterAlreadyLoggedIn() {
