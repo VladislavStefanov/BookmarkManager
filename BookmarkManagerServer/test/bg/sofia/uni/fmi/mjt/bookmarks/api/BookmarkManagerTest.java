@@ -13,6 +13,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import bg.sofia.uni.fmi.mjt.bookmarks.Response;
+import bg.sofia.uni.fmi.mjt.bookmarks.api.state.GuestBookmarkManagerState;
 import bg.sofia.uni.fmi.mjt.bookmarks.repositories.BookmarkRepository;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -36,7 +37,7 @@ public class BookmarkManagerTest {
     private BookmarkRepository bookmarkRepository;
 
     @InjectMocks
-    private BookmarkManager bookmarkManager;
+    private GuestBookmarkManagerState bookmarkManager;
 
     @Test
     public void testRegisterAlreadyLoggedIn() {
@@ -65,8 +66,7 @@ public class BookmarkManagerTest {
         Mockito.when(bookmarkRepository.addBookmarkToDefaultCollection(URL))
                 .thenReturn(Response.URL_ADDED.getMessage());
 
-        assertEquals(Response.URL_ADDED.getMessage(),
-                bookmarkManager.add(URL));
+        assertEquals(Response.URL_ADDED.getMessage(), bookmarkManager.add(URL));
     }
 
     @Test
@@ -84,8 +84,8 @@ public class BookmarkManagerTest {
                 .removeBookmarkFromCollection(COLLECTION_NAME, URL))
                 .thenReturn(Response.URL_REMOVED.getMessage());
 
-        assertEquals(Response.URL_REMOVED.getMessage(), bookmarkManager
-                .removeFromCollection(COLLECTION_NAME, URL));
+        assertEquals(Response.URL_REMOVED.getMessage(),
+                bookmarkManager.removeFromCollection(COLLECTION_NAME, URL));
     }
 
     @Test
@@ -101,8 +101,8 @@ public class BookmarkManagerTest {
                 .getAllBookmarksFromCollection(COLLECTION_NAME))
                 .thenReturn(URL);
 
-        assertEquals(URL, bookmarkManager
-                .getBookmarksFromCollection(COLLECTION_NAME));
+        assertEquals(URL,
+                bookmarkManager.getBookmarksFromCollection(COLLECTION_NAME));
     }
 
     @Test
@@ -118,8 +118,7 @@ public class BookmarkManagerTest {
         Mockito.when(bookmarkRepository.searchBookmarksByTags(RAW_TAGS))
                 .thenReturn(URL);
 
-        assertEquals(URL,
-                bookmarkManager.searchBookmarksByTags(RAW_TAGS));
+        assertEquals(URL, bookmarkManager.searchBookmarksByTags(RAW_TAGS));
     }
 
     @Test

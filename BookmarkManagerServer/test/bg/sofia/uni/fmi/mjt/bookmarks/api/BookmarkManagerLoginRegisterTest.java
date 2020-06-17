@@ -2,6 +2,7 @@ package bg.sofia.uni.fmi.mjt.bookmarks.api;
 
 import static org.junit.Assert.assertEquals;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -10,6 +11,8 @@ import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import bg.sofia.uni.fmi.mjt.bookmarks.Response;
+import bg.sofia.uni.fmi.mjt.bookmarks.api.state.GuestBookmarkManagerState;
+import bg.sofia.uni.fmi.mjt.bookmarks.api.state.LoggedInBookmarkManagerState;
 import bg.sofia.uni.fmi.mjt.bookmarks.repositories.UserRepository;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -22,8 +25,22 @@ public class BookmarkManagerLoginRegisterTest {
     @Mock
     private UserRepository userRepository;
 
+    @Mock
+    private BookmarkManager bookmarkManagerWrapper;
+
     @InjectMocks
-    private BookmarkManager bookmarkManager;
+    private GuestBookmarkManagerState bookmarkManagerState;
+
+    @Before
+    public void setUp() {
+        // @formatter:off
+        Mockito.doNothing()
+        .when(bookmarkManagerWrapper)
+        .setState(new LoggedInBookmarkManagerState(
+                bookmarkManagerWrapper,
+                USERNAME));
+        // @formatter:on
+    }
 
     @Test
     public void testRegister() {
@@ -31,7 +48,7 @@ public class BookmarkManagerLoginRegisterTest {
                 .thenReturn(true);
 
         assertEquals(Response.REGISTERED.getMessage(),
-                bookmarkManager.register(USERNAME, PASSWORD));
+                bookmarkManagerState.register(USERNAME, PASSWORD));
     }
 
     @Test
@@ -40,7 +57,7 @@ public class BookmarkManagerLoginRegisterTest {
                 .thenReturn(false);
 
         assertEquals(Response.USER_WITH_USERNAME_ALREADY_EXISTS.getMessage(),
-                bookmarkManager.register(USERNAME, PASSWORD));
+                bookmarkManagerState.register(USERNAME, PASSWORD));
     }
 
     @Test
@@ -49,7 +66,7 @@ public class BookmarkManagerLoginRegisterTest {
                 .thenReturn(true);
 
         assertEquals(Response.LOGGED_IN.getMessage(),
-                bookmarkManager.login(USERNAME, PASSWORD));
+                bookmarkManagerState.login(USERNAME, PASSWORD));
     }
 
     @Test
@@ -58,6 +75,6 @@ public class BookmarkManagerLoginRegisterTest {
                 .thenReturn(false);
 
         assertEquals(Response.INVALID_CREDENTIALS.getMessage(),
-                bookmarkManager.login(USERNAME, PASSWORD));
+                bookmarkManagerState.login(USERNAME, PASSWORD));
     }
 }
