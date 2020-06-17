@@ -7,7 +7,7 @@ import bg.sofia.uni.fmi.mjt.bookmarks.input.commands.Command;
 
 //TODO maybe add producer-consumer
 
-public class InputProcessor {
+public class InputHandler {
 
     public static final String WHITESPACES_REGEX = "\\s+";
 

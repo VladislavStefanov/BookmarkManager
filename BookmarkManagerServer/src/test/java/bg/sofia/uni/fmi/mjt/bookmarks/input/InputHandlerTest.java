@@ -15,7 +15,7 @@ import bg.sofia.uni.fmi.mjt.bookmarks.Response;
 import bg.sofia.uni.fmi.mjt.bookmarks.api.BookmarkManager;
 
 @RunWith(MockitoJUnitRunner.class)
-public class InputProcessorTest {
+public class InputHandlerTest {
 
     private static final String DELIMITER = " ";
 
@@ -29,14 +29,14 @@ public class InputProcessorTest {
     private BookmarkManager bookmarkManager;
 
     @InjectMocks
-    private InputProcessor inputProcessor;
+    private InputHandler inputHandler;
 
     @Test
     public void testProcessWithoutArguments() {
         Mockito.when(bookmarkManager.getAllBookmarks())
                 .thenReturn(BOOKMARKS);
 
-        String response = inputProcessor.process(LIST_ALL.getName());
+        String response = inputHandler.process(LIST_ALL.getName());
         assertEquals(BOOKMARKS, response);
     }
 
@@ -46,14 +46,14 @@ public class InputProcessorTest {
                 .getBookmarksFromCollection(COLLECTION_NAME))
                 .thenReturn(BOOKMARKS);
 
-        String response = inputProcessor
+        String response = inputHandler
                 .process(LIST.getName() + DELIMITER + COLLECTION_NAME);
         assertEquals(BOOKMARKS, response);
     }
 
     @Test
     public void testProcessWrongCommand() {
-        String response = inputProcessor.process(WRONG_COMMAND);
+        String response = inputHandler.process(WRONG_COMMAND);
         assertEquals(Response.WRONG_COMMAND.getMessage(), response);
     }
 

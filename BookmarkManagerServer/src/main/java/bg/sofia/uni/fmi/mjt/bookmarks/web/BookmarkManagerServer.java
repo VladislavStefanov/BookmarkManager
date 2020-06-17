@@ -24,7 +24,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
-import bg.sofia.uni.fmi.mjt.bookmarks.input.InputProcessor;
+import bg.sofia.uni.fmi.mjt.bookmarks.input.InputHandler;
 
 public class BookmarkManagerServer implements Runnable {
     private static final String CLOSED_BY_THE_REMOTE_HOST_EXCEPTION_MESSAGE = "closed by the remote host";
@@ -35,7 +35,7 @@ public class BookmarkManagerServer implements Runnable {
 
     private final ByteBuffer buffer = ByteBuffer
             .allocate(DEFAULT_BUFFER_CAPACITY);
-    private final Map<SocketChannel, InputProcessor> inputProcessorsByChannels = new HashMap<>();
+    private final Map<SocketChannel, InputHandler> inputHandlersByChannels = new HashMap<>();
 
     public void run() {
         try (Selector selector = Selector.open();
@@ -65,15 +65,15 @@ public class BookmarkManagerServer implements Runnable {
                             SocketChannel socketChannel = registerChannel(
                                     selector, serverSocketChannel);
                             if (socketChannel != null) {
-                                inputProcessorsByChannels.put(socketChannel,
-                                        new InputProcessor());
+                                inputHandlersByChannels.put(socketChannel,
+                                        new InputHandler());
                             }
                         } else if (key.isReadable()) {
                             SocketChannel socketChannel = (SocketChannel) key
                                     .channel();
                             try {
                                 String message = readMessage(socketChannel);
-                                String responseMessage = inputProcessorsByChannels
+                                String responseMessage = inputHandlersByChannels
                                         .get(socketChannel).process(message);
                                 if (!CLOSED.getMessage()
                                         .equals(responseMessage)) {
@@ -81,12 +81,12 @@ public class BookmarkManagerServer implements Runnable {
                                             responseMessage);
                                 } else {
                                     socketChannel.close();
-                                    inputProcessorsByChannels
+                                    inputHandlersByChannels
                                             .remove(socketChannel);
                                 }
                             } catch (ClosedChannelException e) {
                                 socketChannel.close();
-                                inputProcessorsByChannels.remove(socketChannel)
+                                inputHandlersByChannels.remove(socketChannel)
                                         .process(CLOSE.getName());
                             }
                         }
@@ -168,14 +168,14 @@ public class BookmarkManagerServer implements Runnable {
     }
 
     public void close() {
-        inputProcessorsByChannels.keySet().stream().forEach(channel -> {
+        inputHandlersByChannels.keySet().stream().forEach(channel -> {
             try {
                 channel.close();
             } catch (IOException e) {
                 System.out.println(CLOSING_CHANNEL_PROBLEM.getMessage());
             }
-            inputProcessorsByChannels.get(channel).process(CLOSE.getName());
+            inputHandlersByChannels.get(channel).process(CLOSE.getName());
         });
-        new InputProcessor().process(QUIT_APPLICATION.getName());
+        new InputHandler().process(QUIT_APPLICATION.getName());
     }
 }

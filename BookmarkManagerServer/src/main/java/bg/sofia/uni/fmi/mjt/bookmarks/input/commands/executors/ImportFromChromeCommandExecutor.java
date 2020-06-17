@@ -1,6 +1,6 @@
 package bg.sofia.uni.fmi.mjt.bookmarks.input.commands.executors;
 
-import static bg.sofia.uni.fmi.mjt.bookmarks.input.InputProcessor.WHITESPACES_REGEX;
+import static bg.sofia.uni.fmi.mjt.bookmarks.input.InputHandler.WHITESPACES_REGEX;
 
 import java.util.Arrays;
 
