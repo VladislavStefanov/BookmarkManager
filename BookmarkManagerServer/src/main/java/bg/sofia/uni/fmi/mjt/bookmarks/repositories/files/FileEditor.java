@@ -29,6 +29,10 @@ public class FileEditor<T> {
 
         if (!Files.exists(path)) {
             try {
+                if (!Files.exists(path.getParent())) {
+                    Files.createDirectories(path.getParent());
+                }
+
                 Files.createFile(path);
             } catch (IOException e) {
                 System.out.println(SAVING_PROBLEM.getMessage());
