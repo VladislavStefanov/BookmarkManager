@@ -1,8 +1,8 @@
 package bg.sofia.uni.fmi.mjt.bookmarks.input.commands.executors;
 
-import bg.sofia.uni.fmi.mjt.bookmarks.api.BookmarkManagerFacade;
+import bg.sofia.uni.fmi.mjt.bookmarks.api.BookmarkManager;
 
 public interface CommandExecutor {
 
-    String execute(final BookmarkManagerFacade bookmarkManagerFacade, final String argumentsString);
+    String execute(final BookmarkManager bookmarkManager, final String argumentsString);
 }

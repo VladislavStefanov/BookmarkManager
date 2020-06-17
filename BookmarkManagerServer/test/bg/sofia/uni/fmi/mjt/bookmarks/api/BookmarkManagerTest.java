@@ -16,7 +16,7 @@ import bg.sofia.uni.fmi.mjt.bookmarks.Response;
 import bg.sofia.uni.fmi.mjt.bookmarks.repositories.BookmarkRepository;
 
 @RunWith(MockitoJUnitRunner.class)
-public class BookmarkManagerFacadeTest {
+public class BookmarkManagerTest {
 
     private static final String COLLECTION_NAME = "my collection";
 
@@ -36,19 +36,19 @@ public class BookmarkManagerFacadeTest {
     private BookmarkRepository bookmarkRepository;
 
     @InjectMocks
-    private BookmarkManagerFacade bookmarkManagerFacade;
+    private BookmarkManager bookmarkManager;
 
     @Test
     public void testRegisterAlreadyLoggedIn() {
         assertEquals(Response.ALREADY_LOGGED_IN.getMessage(),
-                bookmarkManagerFacade.login(USERNAME, PASSWORD));
+                bookmarkManager.login(USERNAME, PASSWORD));
     }
 
     @Test
     public void testLoginAlreadyLoggedIn() {
 
         assertEquals(Response.ALREADY_LOGGED_IN.getMessage(),
-                bookmarkManagerFacade.register(USERNAME, PASSWORD));
+                bookmarkManager.register(USERNAME, PASSWORD));
     }
 
     @Test
@@ -57,7 +57,7 @@ public class BookmarkManagerFacadeTest {
                 .thenReturn(Response.COLLECTION_CREATED.getMessage());
 
         assertEquals(Response.COLLECTION_CREATED.getMessage(),
-                bookmarkManagerFacade.createCollection(COLLECTION_NAME));
+                bookmarkManager.createCollection(COLLECTION_NAME));
     }
 
     @Test
@@ -66,7 +66,7 @@ public class BookmarkManagerFacadeTest {
                 .thenReturn(Response.URL_ADDED.getMessage());
 
         assertEquals(Response.URL_ADDED.getMessage(),
-                bookmarkManagerFacade.add(URL));
+                bookmarkManager.add(URL));
     }
 
     @Test
@@ -75,7 +75,7 @@ public class BookmarkManagerFacadeTest {
                 URL)).thenReturn(Response.URL_ADDED.getMessage());
 
         assertEquals(Response.URL_ADDED.getMessage(),
-                bookmarkManagerFacade.addToCollection(COLLECTION_NAME, URL));
+                bookmarkManager.addToCollection(COLLECTION_NAME, URL));
     }
 
     @Test
@@ -84,7 +84,7 @@ public class BookmarkManagerFacadeTest {
                 .removeBookmarkFromCollection(COLLECTION_NAME, URL))
                 .thenReturn(Response.URL_REMOVED.getMessage());
 
-        assertEquals(Response.URL_REMOVED.getMessage(), bookmarkManagerFacade
+        assertEquals(Response.URL_REMOVED.getMessage(), bookmarkManager
                 .removeFromCollection(COLLECTION_NAME, URL));
     }
 
@@ -92,7 +92,7 @@ public class BookmarkManagerFacadeTest {
     public void testGetAllBookmarks() {
         Mockito.when(bookmarkRepository.getAllBookmarks()).thenReturn(URL);
 
-        assertEquals(URL, bookmarkManagerFacade.getAllBookmarks());
+        assertEquals(URL, bookmarkManager.getAllBookmarks());
     }
 
     @Test
@@ -101,7 +101,7 @@ public class BookmarkManagerFacadeTest {
                 .getAllBookmarksFromCollection(COLLECTION_NAME))
                 .thenReturn(URL);
 
-        assertEquals(URL, bookmarkManagerFacade
+        assertEquals(URL, bookmarkManager
                 .getBookmarksFromCollection(COLLECTION_NAME));
     }
 
@@ -110,7 +110,7 @@ public class BookmarkManagerFacadeTest {
         Mockito.when(bookmarkRepository.searchBookmarksByTitle(TITLE))
                 .thenReturn(URL);
 
-        assertEquals(URL, bookmarkManagerFacade.searchBookmarksByTitle(TITLE));
+        assertEquals(URL, bookmarkManager.searchBookmarksByTitle(TITLE));
     }
 
     @Test
@@ -119,7 +119,7 @@ public class BookmarkManagerFacadeTest {
                 .thenReturn(URL);
 
         assertEquals(URL,
-                bookmarkManagerFacade.searchBookmarksByTags(RAW_TAGS));
+                bookmarkManager.searchBookmarksByTags(RAW_TAGS));
     }
 
     @Test
@@ -129,7 +129,7 @@ public class BookmarkManagerFacadeTest {
                 .thenReturn(Response.IMPORTED_FROM_CHROME.getMessage());
 
         assertEquals(Response.IMPORTED_FROM_CHROME.getMessage(),
-                bookmarkManagerFacade.importFromChrome(CHROME_URLS));
+                bookmarkManager.importFromChrome(CHROME_URLS));
     }
 
     @Test
@@ -137,7 +137,7 @@ public class BookmarkManagerFacadeTest {
         Mockito.doNothing().when(bookmarkRepository).persistBookmarks();
 
         assertEquals(Response.CLOSED.getMessage(),
-                bookmarkManagerFacade.persistBookmarks());
+                bookmarkManager.persistBookmarks());
     }
 
 }

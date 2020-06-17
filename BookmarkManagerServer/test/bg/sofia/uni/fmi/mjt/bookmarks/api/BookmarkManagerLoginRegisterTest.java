@@ -13,7 +13,7 @@ import bg.sofia.uni.fmi.mjt.bookmarks.Response;
 import bg.sofia.uni.fmi.mjt.bookmarks.repositories.UserRepository;
 
 @RunWith(MockitoJUnitRunner.class)
-public class BookmarkManagerFacadeLoginRegisterTest {
+public class BookmarkManagerLoginRegisterTest {
 
     private static final String PASSWORD = "1234";
 
@@ -23,7 +23,7 @@ public class BookmarkManagerFacadeLoginRegisterTest {
     private UserRepository userRepository;
 
     @InjectMocks
-    private BookmarkManagerFacade bookmarkManagerFacade;
+    private BookmarkManager bookmarkManager;
 
     @Test
     public void testRegister() {
@@ -31,7 +31,7 @@ public class BookmarkManagerFacadeLoginRegisterTest {
                 .thenReturn(true);
 
         assertEquals(Response.REGISTERED.getMessage(),
-                bookmarkManagerFacade.register(USERNAME, PASSWORD));
+                bookmarkManager.register(USERNAME, PASSWORD));
     }
 
     @Test
@@ -40,7 +40,7 @@ public class BookmarkManagerFacadeLoginRegisterTest {
                 .thenReturn(false);
 
         assertEquals(Response.USER_WITH_USERNAME_ALREADY_EXISTS.getMessage(),
-                bookmarkManagerFacade.register(USERNAME, PASSWORD));
+                bookmarkManager.register(USERNAME, PASSWORD));
     }
 
     @Test
@@ -49,7 +49,7 @@ public class BookmarkManagerFacadeLoginRegisterTest {
                 .thenReturn(true);
 
         assertEquals(Response.LOGGED_IN.getMessage(),
-                bookmarkManagerFacade.login(USERNAME, PASSWORD));
+                bookmarkManager.login(USERNAME, PASSWORD));
     }
 
     @Test
@@ -58,6 +58,6 @@ public class BookmarkManagerFacadeLoginRegisterTest {
                 .thenReturn(false);
 
         assertEquals(Response.INVALID_CREDENTIALS.getMessage(),
-                bookmarkManagerFacade.login(USERNAME, PASSWORD));
+                bookmarkManager.login(USERNAME, PASSWORD));
     }
 }

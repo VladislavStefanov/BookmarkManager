@@ -9,7 +9,7 @@ import org.junit.Test;
 
 import bg.sofia.uni.fmi.mjt.bookmarks.Response;
 
-public class BookmarkManagerFacadeNotLoggedInTest {
+public class BookmarkManagerNotLoggedInTest {
 
     private static final String COLLECTION_NAME = "my collection";
     private static final String URL = "google.com";
@@ -19,64 +19,64 @@ public class BookmarkManagerFacadeNotLoggedInTest {
 
     @Test
     public void testCreateCollectionNotLoggedIn() {
-        BookmarkManagerFacade bookmarkManagerFacade = new BookmarkManagerFacade();
+        BookmarkManager bookmarkManager = new BookmarkManager();
         assertEquals(Response.NOT_LOGGED_IN.getMessage(),
-                bookmarkManagerFacade.createCollection(COLLECTION_NAME));
+                bookmarkManager.createCollection(COLLECTION_NAME));
     }
 
     @Test
     public void testAddNotLoggedIn() {
-        BookmarkManagerFacade bookmarkManagerFacade = new BookmarkManagerFacade();
+        BookmarkManager bookmarkManager = new BookmarkManager();
         assertEquals(Response.NOT_LOGGED_IN.getMessage(),
-                bookmarkManagerFacade.add(URL));
+                bookmarkManager.add(URL));
     }
 
     @Test
     public void testAddToCollectionNotLoggedIn() {
-        BookmarkManagerFacade bookmarkManagerFacade = new BookmarkManagerFacade();
+        BookmarkManager bookmarkManager = new BookmarkManager();
         assertEquals(Response.NOT_LOGGED_IN.getMessage(),
-                bookmarkManagerFacade.addToCollection(COLLECTION_NAME, URL));
+                bookmarkManager.addToCollection(COLLECTION_NAME, URL));
     }
 
     @Test
     public void testRemoveFromCollectionNotLoggedIn() {
-        BookmarkManagerFacade bookmarkManagerFacade = new BookmarkManagerFacade();
-        assertEquals(Response.NOT_LOGGED_IN.getMessage(), bookmarkManagerFacade
+        BookmarkManager bookmarkManager = new BookmarkManager();
+        assertEquals(Response.NOT_LOGGED_IN.getMessage(), bookmarkManager
                 .removeFromCollection(COLLECTION_NAME, URL));
     }
 
     @Test
     public void testGetAllBookmarksNotLoggedIn() {
-        BookmarkManagerFacade bookmarkManagerFacade = new BookmarkManagerFacade();
+        BookmarkManager bookmarkManager = new BookmarkManager();
         assertEquals(Response.NOT_LOGGED_IN.getMessage(),
-                bookmarkManagerFacade.getAllBookmarks());
+                bookmarkManager.getAllBookmarks());
     }
 
     @Test
     public void testGetBookmarksFromCollectionNotLoggedIn() {
-        BookmarkManagerFacade bookmarkManagerFacade = new BookmarkManagerFacade();
-        assertEquals(Response.NOT_LOGGED_IN.getMessage(), bookmarkManagerFacade
+        BookmarkManager bookmarkManager = new BookmarkManager();
+        assertEquals(Response.NOT_LOGGED_IN.getMessage(), bookmarkManager
                 .getBookmarksFromCollection(COLLECTION_NAME));
     }
 
     @Test
     public void testSearchByTitleNotLoggedIn() {
-        BookmarkManagerFacade bookmarkManagerFacade = new BookmarkManagerFacade();
+        BookmarkManager bookmarkManager = new BookmarkManager();
         assertEquals(Response.NOT_LOGGED_IN.getMessage(),
-                bookmarkManagerFacade.searchBookmarksByTitle(TITLE));
+                bookmarkManager.searchBookmarksByTitle(TITLE));
     }
 
     @Test
     public void testSearchByTagsNotLoggedIn() {
-        BookmarkManagerFacade bookmarkManagerFacade = new BookmarkManagerFacade();
+        BookmarkManager bookmarkManager = new BookmarkManager();
         assertEquals(Response.NOT_LOGGED_IN.getMessage(),
-                bookmarkManagerFacade.searchBookmarksByTags(RAW_TAGS));
+                bookmarkManager.searchBookmarksByTags(RAW_TAGS));
     }
 
     @Test
     public void testImportFromChromeNotLoggedIn() {
-        BookmarkManagerFacade bookmarkManagerFacade = new BookmarkManagerFacade();
+        BookmarkManager bookmarkManager = new BookmarkManager();
         assertEquals(Response.NOT_LOGGED_IN.getMessage(),
-                bookmarkManagerFacade.importFromChrome(CHROME_URLS));
+                bookmarkManager.importFromChrome(CHROME_URLS));
     }
 }

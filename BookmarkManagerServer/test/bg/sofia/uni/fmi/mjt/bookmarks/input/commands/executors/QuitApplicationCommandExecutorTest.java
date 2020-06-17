@@ -10,7 +10,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import bg.sofia.uni.fmi.mjt.bookmarks.Response;
-import bg.sofia.uni.fmi.mjt.bookmarks.api.BookmarkManagerFacade;
+import bg.sofia.uni.fmi.mjt.bookmarks.api.BookmarkManager;
 
 @RunWith(MockitoJUnitRunner.class)
 public class QuitApplicationCommandExecutorTest {
@@ -18,14 +18,14 @@ public class QuitApplicationCommandExecutorTest {
     private static final String WRONG_ARGUMENTS = "a";
 
     @Mock
-    private BookmarkManagerFacade bookmarkManagerFacade;
+    private BookmarkManager bookmarkManager;
 
     @Test
     public void testExecute() {
-        Mockito.doNothing().when(bookmarkManagerFacade).persistUsers();
+        Mockito.doNothing().when(bookmarkManager).persistUsers();
 
         CommandExecutor commandExecutor = new QuitApplicationCommandExecutor();
-        String response = commandExecutor.execute(bookmarkManagerFacade,
+        String response = commandExecutor.execute(bookmarkManager,
                 new String());
         assertTrue(response.isEmpty());
     }
@@ -33,7 +33,7 @@ public class QuitApplicationCommandExecutorTest {
     @Test
     public void testExecuteWrongArguments() {
         CommandExecutor commandExecutor = new QuitApplicationCommandExecutor();
-        String response = commandExecutor.execute(bookmarkManagerFacade,
+        String response = commandExecutor.execute(bookmarkManager,
                 WRONG_ARGUMENTS);
         assertEquals(Response.WRONG_ARGUMENTS.getMessage(), response);
     }

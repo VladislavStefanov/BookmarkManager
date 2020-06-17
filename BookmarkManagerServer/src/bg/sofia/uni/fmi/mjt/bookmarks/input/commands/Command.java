@@ -2,7 +2,7 @@ package bg.sofia.uni.fmi.mjt.bookmarks.input.commands;
 
 import java.util.Arrays;
 
-import bg.sofia.uni.fmi.mjt.bookmarks.api.BookmarkManagerFacade;
+import bg.sofia.uni.fmi.mjt.bookmarks.api.BookmarkManager;
 import bg.sofia.uni.fmi.mjt.bookmarks.input.commands.executors.AddCommandExecutor;
 import bg.sofia.uni.fmi.mjt.bookmarks.input.commands.executors.AddToCommandExecutor;
 import bg.sofia.uni.fmi.mjt.bookmarks.input.commands.executors.CloseCommandExecutor;
@@ -44,7 +44,7 @@ public enum Command {
         return name;
     }
 
-    public String execute(final BookmarkManagerFacade bookmarkManager,
+    public String execute(final BookmarkManager bookmarkManager,
             final String argumentsString) {
         return commandExecutor.execute(bookmarkManager, argumentsString);
     }

@@ -3,7 +3,7 @@ package bg.sofia.uni.fmi.mjt.bookmarks.input.commands.executors;
 import static bg.sofia.uni.fmi.mjt.bookmarks.Response.WRONG_ARGUMENTS;
 import static bg.sofia.uni.fmi.mjt.bookmarks.input.InputProcessor.WHITESPACES_REGEX;
 
-import bg.sofia.uni.fmi.mjt.bookmarks.api.BookmarkManagerFacade;
+import bg.sofia.uni.fmi.mjt.bookmarks.api.BookmarkManager;
 
 public class AddCommandExecutor implements CommandExecutor {
 
@@ -11,10 +11,10 @@ public class AddCommandExecutor implements CommandExecutor {
             + ".*";
 
     @Override
-    public String execute(final BookmarkManagerFacade bookmarkManagerFacade,
+    public String execute(final BookmarkManager bookmarkManager,
             final String argumentsString) {
         if (!argumentsString.matches(HAS_WHITESPACE_REGEX)) {
-            return bookmarkManagerFacade.add(argumentsString);
+            return bookmarkManager.add(argumentsString);
         }
 
         return WRONG_ARGUMENTS.getMessage();

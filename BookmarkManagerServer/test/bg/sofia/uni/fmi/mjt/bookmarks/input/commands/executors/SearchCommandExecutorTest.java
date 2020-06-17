@@ -12,7 +12,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import bg.sofia.uni.fmi.mjt.bookmarks.Response;
-import bg.sofia.uni.fmi.mjt.bookmarks.api.BookmarkManagerFacade;
+import bg.sofia.uni.fmi.mjt.bookmarks.api.BookmarkManager;
 
 @RunWith(MockitoJUnitRunner.class)
 public class SearchCommandExecutorTest {
@@ -34,27 +34,27 @@ public class SearchCommandExecutorTest {
     private static final List<String> TAGS = Arrays.asList("video", "youtube");
 
     @Mock
-    private BookmarkManagerFacade bookmarkManagerFacade;
+    private BookmarkManager bookmarkManager;
 
     @Test
     public void testExecuteSearchByTiltle() {
-        Mockito.when(bookmarkManagerFacade.searchBookmarksByTitle(TITLE))
+        Mockito.when(bookmarkManager.searchBookmarksByTitle(TITLE))
                 .thenReturn(RESPONSE);
         CommandExecutor commandExecutor = new SearchCommandExecutor();
-        String response = commandExecutor.execute(bookmarkManagerFacade,
+        String response = commandExecutor.execute(bookmarkManager,
                 TITLE_SPECIFIER + TITLE);
         assertEquals(RESPONSE, response);
     }
 
     @Test
     public void testExecuteSearchByTags() {
-        Mockito.when(bookmarkManagerFacade.searchBookmarksByTags(TAGS))
+        Mockito.when(bookmarkManager.searchBookmarksByTags(TAGS))
                 .thenReturn(RESPONSE);
         CommandExecutor commandExecutor = new SearchCommandExecutor();
 
         StringBuilder tagsStringBuilder = new StringBuilder(TAGS_SPECIFIER);
         TAGS.forEach(tag -> tagsStringBuilder.append(tag).append(SPACE));
-        String response = commandExecutor.execute(bookmarkManagerFacade,
+        String response = commandExecutor.execute(bookmarkManager,
                 tagsStringBuilder.toString());
         assertEquals(RESPONSE, response);
     }
@@ -62,11 +62,11 @@ public class SearchCommandExecutorTest {
     @Test
     public void testExecuteWrongArguments() {
         CommandExecutor commandExecutor = new SearchCommandExecutor();
-        String response = commandExecutor.execute(bookmarkManagerFacade,
+        String response = commandExecutor.execute(bookmarkManager,
                 WRONG_ARGUMENTS);
         assertEquals(Response.WRONG_ARGUMENTS.getMessage(), response);
 
-        response = commandExecutor.execute(bookmarkManagerFacade,
+        response = commandExecutor.execute(bookmarkManager,
                 WRONG_ARGUMENTS2);
         assertEquals(Response.WRONG_ARGUMENTS.getMessage(), response);
     }

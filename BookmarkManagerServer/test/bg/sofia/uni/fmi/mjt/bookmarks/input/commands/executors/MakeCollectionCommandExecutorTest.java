@@ -9,7 +9,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import bg.sofia.uni.fmi.mjt.bookmarks.Response;
-import bg.sofia.uni.fmi.mjt.bookmarks.api.BookmarkManagerFacade;
+import bg.sofia.uni.fmi.mjt.bookmarks.api.BookmarkManager;
 
 @RunWith(MockitoJUnitRunner.class)
 public class MakeCollectionCommandExecutorTest {
@@ -17,15 +17,15 @@ public class MakeCollectionCommandExecutorTest {
     private static final String COLLECTION_NAME = "my collection";
 
     @Mock
-    private BookmarkManagerFacade bookmarkManagerFacade;
+    private BookmarkManager bookmarkManager;
 
     @Test
     public void testExecute() {
-        Mockito.when(bookmarkManagerFacade.createCollection(COLLECTION_NAME))
+        Mockito.when(bookmarkManager.createCollection(COLLECTION_NAME))
                 .thenReturn(Response.COLLECTION_CREATED.getMessage());
 
         CommandExecutor commandExecutor = new MakeCollectionCommandExecutor();
-        String response = commandExecutor.execute(bookmarkManagerFacade,
+        String response = commandExecutor.execute(bookmarkManager,
                 COLLECTION_NAME);
         assertEquals(Response.COLLECTION_CREATED.getMessage(), response);
     }

@@ -11,7 +11,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import bg.sofia.uni.fmi.mjt.bookmarks.Response;
-import bg.sofia.uni.fmi.mjt.bookmarks.api.BookmarkManagerFacade;
+import bg.sofia.uni.fmi.mjt.bookmarks.api.BookmarkManager;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ImportFromChromeCommandExecutorTest {
@@ -20,16 +20,16 @@ public class ImportFromChromeCommandExecutorTest {
     private static final String URL2 = "zxcv";
 
     @Mock
-    private BookmarkManagerFacade bookmarkManagerFacade;
+    private BookmarkManager bookmarkManager;
 
     @Test
     public void testExecute() {
-        Mockito.when(bookmarkManagerFacade
+        Mockito.when(bookmarkManager
                 .importFromChrome(Arrays.asList(URL1, URL2)))
                 .thenReturn(Response.IMPORTED_FROM_CHROME.getMessage());
 
         CommandExecutor commandExecutor = new ImportFromChromeCommandExecutor();
-        String response = commandExecutor.execute(bookmarkManagerFacade,
+        String response = commandExecutor.execute(bookmarkManager,
                 URL1 + SPACE + URL2);
         assertEquals(Response.IMPORTED_FROM_CHROME.getMessage(), response);
     }

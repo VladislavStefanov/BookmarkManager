@@ -4,14 +4,14 @@ import static bg.sofia.uni.fmi.mjt.bookmarks.input.InputProcessor.WHITESPACES_RE
 
 import java.util.Arrays;
 
-import bg.sofia.uni.fmi.mjt.bookmarks.api.BookmarkManagerFacade;
+import bg.sofia.uni.fmi.mjt.bookmarks.api.BookmarkManager;
 
 public class ImportFromChromeCommandExecutor implements CommandExecutor {
 
     @Override
-    public String execute(final BookmarkManagerFacade bookmarkManagerFacade,
+    public String execute(final BookmarkManager bookmarkManager,
             final String argumentsString) {
-        return bookmarkManagerFacade.importFromChrome(
+        return bookmarkManager.importFromChrome(
                 Arrays.asList(argumentsString.split(WHITESPACES_REGEX)));
     }
 

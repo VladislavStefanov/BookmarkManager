@@ -8,7 +8,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import bg.sofia.uni.fmi.mjt.bookmarks.api.BookmarkManagerFacade;
+import bg.sofia.uni.fmi.mjt.bookmarks.api.BookmarkManager;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ListCommandExecutorTest {
@@ -18,16 +18,16 @@ public class ListCommandExecutorTest {
     private static final String RESPONSE = "youtube.com, google.com";
 
     @Mock
-    private BookmarkManagerFacade bookmarkManagerFacade;
+    private BookmarkManager bookmarkManager;
 
     @Test
     public void testExecute() {
-        Mockito.when(bookmarkManagerFacade
+        Mockito.when(bookmarkManager
                 .getBookmarksFromCollection(COLLECTION_NAME))
                 .thenReturn(RESPONSE);
 
         CommandExecutor commandExecutor = new ListCommandExecutor();
-        String response = commandExecutor.execute(bookmarkManagerFacade,
+        String response = commandExecutor.execute(bookmarkManager,
                 COLLECTION_NAME);
         assertEquals(RESPONSE, response);
     }

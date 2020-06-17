@@ -13,7 +13,7 @@ import bg.sofia.uni.fmi.mjt.bookmarks.Response;
 import bg.sofia.uni.fmi.mjt.bookmarks.repositories.BookmarkRepository;
 import bg.sofia.uni.fmi.mjt.bookmarks.repositories.UserRepository;
 
-public class BookmarkManagerFacade {
+public class BookmarkManager {
 
     private BookmarkRepository bookmarkRepository = null;
     private UserRepository userRepository = UserRepository.getInstance();

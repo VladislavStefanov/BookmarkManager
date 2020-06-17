@@ -9,7 +9,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import bg.sofia.uni.fmi.mjt.bookmarks.Response;
-import bg.sofia.uni.fmi.mjt.bookmarks.api.BookmarkManagerFacade;
+import bg.sofia.uni.fmi.mjt.bookmarks.api.BookmarkManager;
 
 @RunWith(MockitoJUnitRunner.class)
 public class LoginCommandExecutorTest {
@@ -23,15 +23,15 @@ public class LoginCommandExecutorTest {
     private static final String WRONG_ARGUMENTS = "aaa";
 
     @Mock
-    private BookmarkManagerFacade bookmarkManagerFacade;
+    private BookmarkManager bookmarkManager;
 
     @Test
     public void testExecute() {
-        Mockito.when(bookmarkManagerFacade.login(USERNAME, PASSWORD))
+        Mockito.when(bookmarkManager.login(USERNAME, PASSWORD))
                 .thenReturn(Response.LOGGED_IN.getMessage());
 
         CommandExecutor commandExecutor = new LoginCommandExecutor();
-        String response = commandExecutor.execute(bookmarkManagerFacade,
+        String response = commandExecutor.execute(bookmarkManager,
                 USERNAME + SPACE + PASSWORD);
         assertEquals(Response.LOGGED_IN.getMessage(), response);
     }
@@ -39,7 +39,7 @@ public class LoginCommandExecutorTest {
     @Test
     public void testExecuteWrongArguments() {
         CommandExecutor commandExecutor = new LoginCommandExecutor();
-        String response = commandExecutor.execute(bookmarkManagerFacade,
+        String response = commandExecutor.execute(bookmarkManager,
                 WRONG_ARGUMENTS);
         assertEquals(Response.WRONG_ARGUMENTS.getMessage(), response);
     }

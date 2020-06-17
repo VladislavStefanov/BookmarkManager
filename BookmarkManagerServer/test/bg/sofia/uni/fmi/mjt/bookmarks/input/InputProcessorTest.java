@@ -12,7 +12,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import bg.sofia.uni.fmi.mjt.bookmarks.Response;
-import bg.sofia.uni.fmi.mjt.bookmarks.api.BookmarkManagerFacade;
+import bg.sofia.uni.fmi.mjt.bookmarks.api.BookmarkManager;
 
 @RunWith(MockitoJUnitRunner.class)
 public class InputProcessorTest {
@@ -26,14 +26,14 @@ public class InputProcessorTest {
     private static final String BOOKMARKS = "bookmarks";
 
     @Mock
-    private BookmarkManagerFacade bookmarkManagerFacade;
+    private BookmarkManager bookmarkManager;
 
     @InjectMocks
     private InputProcessor inputProcessor;
 
     @Test
     public void testProcessWithoutArguments() {
-        Mockito.when(bookmarkManagerFacade.getAllBookmarks())
+        Mockito.when(bookmarkManager.getAllBookmarks())
                 .thenReturn(BOOKMARKS);
 
         String response = inputProcessor.process(LIST_ALL.getName());
@@ -42,7 +42,7 @@ public class InputProcessorTest {
 
     @Test
     public void testProcessWithArguments() {
-        Mockito.when(bookmarkManagerFacade
+        Mockito.when(bookmarkManager
                 .getBookmarksFromCollection(COLLECTION_NAME))
                 .thenReturn(BOOKMARKS);
 

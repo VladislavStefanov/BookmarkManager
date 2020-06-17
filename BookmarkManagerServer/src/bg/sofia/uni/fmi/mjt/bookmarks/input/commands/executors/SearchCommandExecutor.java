@@ -6,7 +6,7 @@ import static bg.sofia.uni.fmi.mjt.bookmarks.input.InputProcessor.WHITESPACES_RE
 import java.util.ArrayList;
 import java.util.List;
 
-import bg.sofia.uni.fmi.mjt.bookmarks.api.BookmarkManagerFacade;
+import bg.sofia.uni.fmi.mjt.bookmarks.api.BookmarkManager;
 
 public class SearchCommandExecutor implements CommandExecutor {
 
@@ -15,7 +15,7 @@ public class SearchCommandExecutor implements CommandExecutor {
     private static final String TAGS_SEARCH_SPECIFIER = "-tags";
 
     @Override
-    public String execute(final BookmarkManagerFacade bookmarkManagerFacade,
+    public String execute(final BookmarkManager bookmarkManager,
             final String argumentsString) {
         String[] argumentTokens = argumentsString.split(WHITESPACES_REGEX);
         int argumentTokensIterator = 0;
@@ -28,14 +28,14 @@ public class SearchCommandExecutor implements CommandExecutor {
                     tags.add(argumentTokens[argumentTokensIterator++]);
                 }
 
-                return bookmarkManagerFacade.searchBookmarksByTags(tags);
+                return bookmarkManager.searchBookmarksByTags(tags);
             }
 
             if (TITLE_SEARCH_SPECIFIER.equalsIgnoreCase(searchTypeSpecifier)) {
                 String title = argumentsString
                         .replace(TITLE_SEARCH_SPECIFIER, new String()).trim();
 
-                return bookmarkManagerFacade.searchBookmarksByTitle(title);
+                return bookmarkManager.searchBookmarksByTitle(title);
             }
         }
 
