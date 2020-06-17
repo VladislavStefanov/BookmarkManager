@@ -23,7 +23,7 @@ public abstract class BookmarkManagerState {
 
     public abstract String createCollection(final String collectionName);
 
-    public abstract String add(final String bookmarkUrl);
+    public abstract String addToDefaultCollection(final String bookmarkUrl);
 
     public abstract String addToCollection(final String collectionName,
             final String bookmarkUrl);

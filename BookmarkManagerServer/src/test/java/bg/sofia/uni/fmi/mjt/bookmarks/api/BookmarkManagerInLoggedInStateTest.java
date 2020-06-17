@@ -66,7 +66,7 @@ public class BookmarkManagerInLoggedInStateTest {
         Mockito.when(bookmarkRepository.addBookmarkToDefaultCollection(URL))
                 .thenReturn(Response.URL_ADDED.getMessage());
 
-        assertEquals(Response.URL_ADDED.getMessage(), bookmarkManager.add(URL));
+        assertEquals(Response.URL_ADDED.getMessage(), bookmarkManager.addToDefaultCollection(URL));
     }
 
     @Test

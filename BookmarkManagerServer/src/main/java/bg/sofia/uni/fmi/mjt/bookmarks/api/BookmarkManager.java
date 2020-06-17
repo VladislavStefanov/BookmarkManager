@@ -24,8 +24,8 @@ public class BookmarkManager {
         return bookmarkManagerState.createCollection(collectionName);
     }
 
-    public String add(final String bookmarkUrl) {
-        return bookmarkManagerState.add(bookmarkUrl);
+    public String addToDefaultCollection(final String bookmarkUrl) {
+        return bookmarkManagerState.addToDefaultCollection(bookmarkUrl);
     }
 
     public String addToCollection(final String collectionName,

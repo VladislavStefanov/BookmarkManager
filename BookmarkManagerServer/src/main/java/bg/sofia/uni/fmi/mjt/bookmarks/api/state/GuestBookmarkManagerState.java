@@ -40,7 +40,7 @@ public class GuestBookmarkManagerState extends BookmarkManagerState {
     }
 
     @Override
-    public String add(final String bookmarkUrl) {
+    public String addToDefaultCollection(final String bookmarkUrl) {
         return NOT_LOGGED_IN.getMessage();
     }
 

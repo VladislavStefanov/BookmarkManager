@@ -22,7 +22,7 @@ public class AddCommandExecutorTest {
 
     @Test
     public void testExecute() {
-        Mockito.when(bookmarkManager.add(URL))
+        Mockito.when(bookmarkManager.addToDefaultCollection(URL))
                 .thenReturn(Response.URL_ADDED.getMessage());
 
         CommandExecutor commandExecutor = new AddCommandExecutor();

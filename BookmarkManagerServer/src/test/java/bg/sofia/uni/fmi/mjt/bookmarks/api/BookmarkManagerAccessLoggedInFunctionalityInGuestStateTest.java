@@ -31,7 +31,7 @@ public class BookmarkManagerAccessLoggedInFunctionalityInGuestStateTest {
         GuestBookmarkManagerState bookmarkManager = new GuestBookmarkManagerState(
                 null);
         assertEquals(Response.NOT_LOGGED_IN.getMessage(),
-                bookmarkManager.add(URL));
+                bookmarkManager.addToDefaultCollection(URL));
     }
 
     @Test

@@ -59,9 +59,9 @@ public class BookmarkManagerTest {
 
     @Test
     public void testAdd() {
-        Mockito.when(bookmarkManagerState.add(NAME)).thenReturn(ANSWER);
+        Mockito.when(bookmarkManagerState.addToDefaultCollection(NAME)).thenReturn(ANSWER);
 
-        String answer = bookmarkManager.add(NAME);
+        String answer = bookmarkManager.addToDefaultCollection(NAME);
         assertEquals(ANSWER, answer);
     }
 

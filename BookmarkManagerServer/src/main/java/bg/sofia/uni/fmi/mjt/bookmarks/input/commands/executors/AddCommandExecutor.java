@@ -14,7 +14,7 @@ public class AddCommandExecutor implements CommandExecutor {
     public String execute(final BookmarkManager bookmarkManager,
             final String argumentsString) {
         if (!argumentsString.matches(HAS_WHITESPACE_REGEX)) {
-            return bookmarkManager.add(argumentsString);
+            return bookmarkManager.addToDefaultCollection(argumentsString);
         }
 
         return WRONG_ARGUMENTS.getMessage();

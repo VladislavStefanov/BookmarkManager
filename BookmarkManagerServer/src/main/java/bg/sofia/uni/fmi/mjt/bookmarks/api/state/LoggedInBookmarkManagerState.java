@@ -32,7 +32,7 @@ public class LoggedInBookmarkManagerState extends BookmarkManagerState {
     }
 
     @Override
-    public String add(final String bookmarkUrl) {
+    public String addToDefaultCollection(final String bookmarkUrl) {
         return bookmarkRepository.addBookmarkToDefaultCollection(bookmarkUrl);
     }
 
