@@ -74,7 +74,7 @@ public class BookmarkManagerServer implements Runnable {
                             try {
                                 String message = readMessage(socketChannel);
                                 String responseMessage = inputHandlersByChannels
-                                        .get(socketChannel).process(message);
+                                        .get(socketChannel).handle(message);
                                 if (!CLOSED.getMessage()
                                         .equals(responseMessage)) {
                                     writeResponse(socketChannel,
@@ -87,7 +87,7 @@ public class BookmarkManagerServer implements Runnable {
                             } catch (ClosedChannelException e) {
                                 socketChannel.close();
                                 inputHandlersByChannels.remove(socketChannel)
-                                        .process(CLOSE.getName());
+                                        .handle(CLOSE.getName());
                             }
                         }
 
@@ -174,8 +174,8 @@ public class BookmarkManagerServer implements Runnable {
             } catch (IOException e) {
                 System.out.println(CLOSING_CHANNEL_PROBLEM.getMessage());
             }
-            inputHandlersByChannels.get(channel).process(CLOSE.getName());
+            inputHandlersByChannels.get(channel).handle(CLOSE.getName());
         });
-        new InputHandler().process(QUIT_APPLICATION.getName());
+        new InputHandler().handle(QUIT_APPLICATION.getName());
     }
 }

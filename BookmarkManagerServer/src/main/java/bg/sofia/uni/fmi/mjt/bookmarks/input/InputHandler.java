@@ -14,7 +14,7 @@ public class InputHandler {
     private static final int MESSAGE_TOKENS_COUNT = 2;
     private BookmarkManager bookmarkManager = new BookmarkManager();
 
-    public String process(final String message) {
+    public String handle(final String message) {
         String[] messageTokens = message.trim().split(WHITESPACES_REGEX,
                 MESSAGE_TOKENS_COUNT);
         int messageTokensIterator = 0;

@@ -36,7 +36,7 @@ public class InputHandlerTest {
         Mockito.when(bookmarkManager.getAllBookmarks())
                 .thenReturn(BOOKMARKS);
 
-        String response = inputHandler.process(LIST_ALL.getName());
+        String response = inputHandler.handle(LIST_ALL.getName());
         assertEquals(BOOKMARKS, response);
     }
 
@@ -47,13 +47,13 @@ public class InputHandlerTest {
                 .thenReturn(BOOKMARKS);
 
         String response = inputHandler
-                .process(LIST.getName() + DELIMITER + COLLECTION_NAME);
+                .handle(LIST.getName() + DELIMITER + COLLECTION_NAME);
         assertEquals(BOOKMARKS, response);
     }
 
     @Test
     public void testProcessWrongCommand() {
-        String response = inputHandler.process(WRONG_COMMAND);
+        String response = inputHandler.handle(WRONG_COMMAND);
         assertEquals(Response.WRONG_COMMAND.getMessage(), response);
     }
 
