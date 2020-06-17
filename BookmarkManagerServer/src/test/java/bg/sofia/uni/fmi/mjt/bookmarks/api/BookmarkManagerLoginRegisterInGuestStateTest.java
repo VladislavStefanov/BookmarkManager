@@ -16,7 +16,7 @@ import bg.sofia.uni.fmi.mjt.bookmarks.api.state.GuestBookmarkManagerState;
 import bg.sofia.uni.fmi.mjt.bookmarks.repositories.UserRepository;
 
 @RunWith(MockitoJUnitRunner.class)
-public class BookmarkManagerLoginRegisterTest {
+public class BookmarkManagerLoginRegisterInGuestStateTest {
 
     private static final String PASSWORD = "1234";
 
@@ -77,6 +77,8 @@ public class BookmarkManagerLoginRegisterTest {
 
         assertEquals(Response.LOGGED_IN.getMessage(),
                 bookmarkManagerState.login(USERNAME, PASSWORD));
+
+        Mockito.verify(bookmarkManagerWrapper).setState(Mockito.any());
     }
 
     @Test

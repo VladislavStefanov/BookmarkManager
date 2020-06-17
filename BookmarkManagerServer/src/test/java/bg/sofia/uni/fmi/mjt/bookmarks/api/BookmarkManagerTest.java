@@ -2,8 +2,7 @@ package bg.sofia.uni.fmi.mjt.bookmarks.api;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.Collections;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,131 +11,140 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import bg.sofia.uni.fmi.mjt.bookmarks.Response;
-import bg.sofia.uni.fmi.mjt.bookmarks.api.state.LoggedInBookmarkManagerState;
-import bg.sofia.uni.fmi.mjt.bookmarks.repositories.BookmarkRepository;
+import bg.sofia.uni.fmi.mjt.bookmarks.api.state.BookmarkManagerState;
 
 @RunWith(MockitoJUnitRunner.class)
 public class BookmarkManagerTest {
 
-    private static final String COLLECTION_NAME = "my collection";
-
-    private static final String URL = "google.com";
-
-    private static final String TITLE = "title";
-
-    private static final List<String> RAW_TAGS = Arrays.asList("tag");
-
-    private static final List<String> CHROME_URLS = Arrays.asList("yay");
+    private static final String ANSWER = "answer";
 
     private static final String PASSWORD = "1234";
 
-    private static final String USERNAME = "vladi";
+    private static final String NAME = "vladi";
+
+    private static final String ALTERNATIVE_NAME = "vladko";
 
     @Mock
-    private BookmarkRepository bookmarkRepository;
+    private BookmarkManagerState bookmarkManagerState;
 
     @InjectMocks
-    private LoggedInBookmarkManagerState bookmarkManager = new LoggedInBookmarkManagerState(
-            null, USERNAME);
+    private BookmarkManager bookmarkManager = new BookmarkManager();
 
     @Test
-    public void testRegisterAlreadyLoggedIn() {
-        assertEquals(Response.ALREADY_LOGGED_IN.getMessage(),
-                bookmarkManager.login(USERNAME, PASSWORD));
+    public void testRegister() {
+        Mockito.when(bookmarkManagerState.register(NAME, PASSWORD))
+                .thenReturn(ANSWER);
+
+        String answer = bookmarkManager.register(NAME, PASSWORD);
+        assertEquals(ANSWER, answer);
     }
 
     @Test
-    public void testLoginAlreadyLoggedIn() {
-        assertEquals(Response.ALREADY_LOGGED_IN.getMessage(),
-                bookmarkManager.register(USERNAME, PASSWORD));
+    public void testLogin() {
+        Mockito.when(bookmarkManagerState.login(NAME, PASSWORD))
+                .thenReturn(ANSWER);
+
+        String answer = bookmarkManager.login(NAME, PASSWORD);
+        assertEquals(ANSWER, answer);
     }
 
     @Test
     public void testCreateCollection() {
-        Mockito.when(bookmarkRepository.createCollection(COLLECTION_NAME))
-                .thenReturn(Response.COLLECTION_CREATED.getMessage());
+        Mockito.when(bookmarkManagerState.createCollection(NAME))
+                .thenReturn(ANSWER);
 
-        assertEquals(Response.COLLECTION_CREATED.getMessage(),
-                bookmarkManager.createCollection(COLLECTION_NAME));
+        String answer = bookmarkManager.createCollection(NAME);
+        assertEquals(ANSWER, answer);
     }
 
     @Test
     public void testAdd() {
-        Mockito.when(bookmarkRepository.addBookmarkToDefaultCollection(URL))
-                .thenReturn(Response.URL_ADDED.getMessage());
+        Mockito.when(bookmarkManagerState.add(NAME)).thenReturn(ANSWER);
 
-        assertEquals(Response.URL_ADDED.getMessage(), bookmarkManager.add(URL));
+        String answer = bookmarkManager.add(NAME);
+        assertEquals(ANSWER, answer);
     }
 
     @Test
     public void testAddToCollection() {
-        Mockito.when(bookmarkRepository.addBookmarkToCollection(COLLECTION_NAME,
-                URL)).thenReturn(Response.URL_ADDED.getMessage());
+        Mockito.when(
+                bookmarkManagerState.addToCollection(NAME, ALTERNATIVE_NAME))
+                .thenReturn(ANSWER);
 
-        assertEquals(Response.URL_ADDED.getMessage(),
-                bookmarkManager.addToCollection(COLLECTION_NAME, URL));
+        String answer = bookmarkManager.addToCollection(NAME, ALTERNATIVE_NAME);
+        assertEquals(ANSWER, answer);
     }
 
     @Test
     public void testRemoveFromCollection() {
-        Mockito.when(bookmarkRepository
-                .removeBookmarkFromCollection(COLLECTION_NAME, URL))
-                .thenReturn(Response.URL_REMOVED.getMessage());
+        Mockito.when(bookmarkManagerState.removeFromCollection(NAME,
+                ALTERNATIVE_NAME)).thenReturn(ANSWER);
 
-        assertEquals(Response.URL_REMOVED.getMessage(),
-                bookmarkManager.removeFromCollection(COLLECTION_NAME, URL));
+        String answer = bookmarkManager.removeFromCollection(NAME,
+                ALTERNATIVE_NAME);
+        assertEquals(ANSWER, answer);
     }
 
     @Test
     public void testGetAllBookmarks() {
-        Mockito.when(bookmarkRepository.getAllBookmarks()).thenReturn(URL);
+        Mockito.when(bookmarkManagerState.getAllBookmarks()).thenReturn(ANSWER);
 
-        assertEquals(URL, bookmarkManager.getAllBookmarks());
+        String answer = bookmarkManager.getAllBookmarks();
+        assertEquals(ANSWER, answer);
     }
 
     @Test
     public void testGetBookmarksFromCollection() {
-        Mockito.when(bookmarkRepository
-                .getAllBookmarksFromCollection(COLLECTION_NAME))
-                .thenReturn(URL);
+        Mockito.when(bookmarkManagerState.getBookmarksFromCollection(NAME))
+                .thenReturn(ANSWER);
 
-        assertEquals(URL,
-                bookmarkManager.getBookmarksFromCollection(COLLECTION_NAME));
+        String answer = bookmarkManager.getBookmarksFromCollection(NAME);
+        assertEquals(ANSWER, answer);
     }
 
     @Test
     public void testSearchBookmarksByTitle() {
-        Mockito.when(bookmarkRepository.searchBookmarksByTitle(TITLE))
-                .thenReturn(URL);
+        Mockito.when(bookmarkManagerState.searchBookmarksByTitle(NAME))
+                .thenReturn(ANSWER);
 
-        assertEquals(URL, bookmarkManager.searchBookmarksByTitle(TITLE));
+        String answer = bookmarkManager.searchBookmarksByTitle(NAME);
+        assertEquals(ANSWER, answer);
     }
 
     @Test
     public void testSearchBookmarksByTags() {
-        Mockito.when(bookmarkRepository.searchBookmarksByTags(RAW_TAGS))
-                .thenReturn(URL);
+        Mockito.when(bookmarkManagerState
+                .searchBookmarksByTags(Collections.singletonList(NAME)))
+                .thenReturn(ANSWER);
 
-        assertEquals(URL, bookmarkManager.searchBookmarksByTags(RAW_TAGS));
+        String answer = bookmarkManager
+                .searchBookmarksByTags(Collections.singletonList(NAME));
+        assertEquals(ANSWER, answer);
     }
 
     @Test
     public void testImportFromChrome() {
-        Mockito.when(bookmarkRepository
-                .addAllBookmarksToChromeCollection(CHROME_URLS))
-                .thenReturn(Response.IMPORTED_FROM_CHROME.getMessage());
+        Mockito.when(bookmarkManagerState
+                .importFromChrome(Collections.singletonList(NAME)))
+                .thenReturn(ANSWER);
 
-        assertEquals(Response.IMPORTED_FROM_CHROME.getMessage(),
-                bookmarkManager.importFromChrome(CHROME_URLS));
+        String answer = bookmarkManager
+                .importFromChrome(Collections.singletonList(NAME));
+        assertEquals(ANSWER, answer);
     }
 
     @Test
     public void testPersistBookmarks() {
-        Mockito.doNothing().when(bookmarkRepository).persistBookmarks();
+        Mockito.when(bookmarkManagerState.persistBookmarks())
+                .thenReturn(ANSWER);
 
-        assertEquals(Response.CLOSED.getMessage(),
-                bookmarkManager.persistBookmarks());
+        String answer = bookmarkManager.persistBookmarks();
+        assertEquals(ANSWER, answer);
     }
 
+    @Test
+    public void testPersistUsers() {
+        bookmarkManager.persistUsers();
+        Mockito.verify(bookmarkManagerState).persistUsers();
+    }
 }
