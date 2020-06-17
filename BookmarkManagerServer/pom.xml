@@ -4,11 +4,11 @@
   <artifactId>BookmarkManagerServer</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <build>
-    <sourceDirectory>src</sourceDirectory>
-    <testSourceDirectory>test</testSourceDirectory>
+    <sourceDirectory>src/main/java</sourceDirectory>
+    <testSourceDirectory>src/test/java</testSourceDirectory>
     <testResources>
       <testResource>
-        <directory>test</directory>
+        <directory>src/test/resources</directory>
         <excludes>
           <exclude>**/*.java</exclude>
         </excludes>
