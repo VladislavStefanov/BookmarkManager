@@ -12,7 +12,7 @@ import org.jsoup.nodes.Document;
 
 public class Bookmark {
 
-    private static final int MILISECONDS = 20000;
+    private static final int TIMEOUT = 20000;
     private final String url;
 
     public String getUrl() {
@@ -29,7 +29,7 @@ public class Bookmark {
 
     public boolean containsTitle(final String title) {
         try {
-            Document htmlDocument = Jsoup.parse(new URL(url), MILISECONDS);
+            Document htmlDocument = Jsoup.parse(new URL(url), TIMEOUT);
             String linkTitle = htmlDocument.title().trim();
             return linkTitle.toLowerCase().contains(title.toLowerCase());
         } catch (IOException e) {
@@ -40,7 +40,7 @@ public class Bookmark {
     public boolean containsTags(final Set<Tag> tags) {
 
         try {
-            Document htmlDocument = Jsoup.parse(new URL(url), MILISECONDS);
+            Document htmlDocument = Jsoup.parse(new URL(url), TIMEOUT);
             String text = htmlDocument.text();
             StringTokenizer tokenizer = new StringTokenizer(text);
 
