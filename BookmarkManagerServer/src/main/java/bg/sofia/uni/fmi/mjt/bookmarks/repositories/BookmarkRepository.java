@@ -19,11 +19,11 @@ import bg.sofia.uni.fmi.mjt.bookmarks.model.Bookmark;
 import bg.sofia.uni.fmi.mjt.bookmarks.model.BookmarkCollection;
 import bg.sofia.uni.fmi.mjt.bookmarks.model.Tag;
 import bg.sofia.uni.fmi.mjt.bookmarks.repositories.files.BookmarkFileEditor;
-import bg.sofia.uni.fmi.mjt.bookmarks.repositories.files.StopwordFileLoader;
+import bg.sofia.uni.fmi.mjt.bookmarks.repositories.files.StopwordLoader;
 
 public class BookmarkRepository {
 
-    public static final Set<Tag> STOPWORDS = new StopwordFileLoader()
+    public static final Set<Tag> STOPWORDS = new StopwordLoader()
             .loadStopwords();
 
     private static final String DEFAULT_COLLECTION_NAME = "default";

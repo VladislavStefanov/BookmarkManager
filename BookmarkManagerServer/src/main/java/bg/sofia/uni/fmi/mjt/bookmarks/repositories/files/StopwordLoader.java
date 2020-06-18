@@ -10,24 +10,28 @@ import java.util.stream.Collectors;
 
 import bg.sofia.uni.fmi.mjt.bookmarks.model.Tag;
 
-public class StopwordFileLoader {
+public class StopwordLoader {
 
     private static final String STOPWORDS_LOCATION = "stopwords.txt";
     private final InputStream inputStream;
 
-    public StopwordFileLoader() {
-        this(StopwordFileLoader.class.getResourceAsStream(STOPWORDS_LOCATION));
+    public StopwordLoader() {
+        this(StopwordLoader.class.getResourceAsStream(STOPWORDS_LOCATION));
     }
 
-    public StopwordFileLoader(final InputStream inputStream) {
+    public StopwordLoader(final InputStream inputStream) {
         this.inputStream = inputStream;
     }
 
     public Set<Tag> loadStopwords() {
+        if (inputStream == null) {
+            return new HashSet<>();
+        }
+
         try (BufferedReader reader = new BufferedReader(
                 new InputStreamReader(inputStream))) {
             return reader.lines().map(Tag::newTag).collect(Collectors.toSet());
-        } catch (IOException | NullPointerException e1) {
+        } catch (IOException e) {
             return new HashSet<>();
         }
     }

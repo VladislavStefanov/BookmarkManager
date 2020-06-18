@@ -33,10 +33,10 @@ public class FileEditorTest {
     @BeforeClass
     public static void setUpBeforeAllTests() {
         try {
-            bookmarksPath = Paths.get(StopwordFileLoaderTest.class
+            bookmarksPath = Paths.get(StopwordLoaderTest.class
                     .getResource("testBookmarks.txt").toURI());
             bookmarksPersistPath = Paths
-                    .get(StopwordFileLoaderTest.class.getProtectionDomain()
+                    .get(StopwordLoaderTest.class.getProtectionDomain()
                             .getCodeSource().getLocation().toURI())
                     .resolve("testBookmarksPersist.txt");
         } catch (URISyntaxException e) {
