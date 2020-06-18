@@ -20,8 +20,10 @@ public class ChromeBookmarkReader {
             System.getProperty("user.home"),
             "AppData\\Local\\Google\\Chrome\\User Data\\Default",
             BOOKMARKS_FILE_NAME);
+
     private static final Path UNIX_BOOKMARKS_PATH = Paths
             .get("~/.config/google-chrome/Default/", BOOKMARKS_FILE_NAME);
+
     private static final Path MAC_BOOKMARKS_PATH = Paths.get(
             System.getProperty("user.home"), "Library/Application",
             "Support/Google/Chrome", BOOKMARKS_FILE_NAME);
@@ -66,10 +68,5 @@ public class ChromeBookmarkReader {
         return (OPERATION_SYSTEM.indexOf("nix") >= 0
                 || OPERATION_SYSTEM.indexOf("nux") >= 0
                 || OPERATION_SYSTEM.indexOf("aix") > 0);
-    }
-
-    public static void main(final String[] args)
-            throws IOException, UnsupportedOperatingSystemException {
-        System.out.println(new ChromeBookmarkReader().read());
     }
 }
