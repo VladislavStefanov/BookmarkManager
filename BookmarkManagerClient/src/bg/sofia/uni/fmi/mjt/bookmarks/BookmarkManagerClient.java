@@ -25,6 +25,7 @@ public class BookmarkManagerClient implements Runnable {
             "search -title <title> - search bookmarks with title equal to <title>",
             "import-from-chrome - adds all bookmarks from Google Chrome",
             "close - closes the application");
+
     private static final String HELP_COMMAND = "help";
 
     private static final String CLOSE_THE_APPLICATION_WITH_THE_CLOSE_COMMAND = "Close the application only with the \"close\" command";
